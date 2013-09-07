@@ -78,7 +78,7 @@ public class Calendar {
 			else
 			{
 			if (hours == 0) { hours = 12; }
-				if (minutes != 0)
+				 if (minutes != 0)
 				{	
 					toReturn = toReturn + "You have " + nameEvent + " at " + (hours) + ":" + minutes + " AM... ";
 				}
