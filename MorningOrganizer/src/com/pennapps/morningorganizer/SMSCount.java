@@ -12,6 +12,10 @@ public class SMSCount {
 	    Cursor inboxCursor = context.getContentResolver().query(SMS_INBOX_URI, null, "read = 0", null, null);
 	    int unreadMessagesCount = inboxCursor.getCount();
 	    inboxCursor.close();
+	    final Uri MMS_INBOX_URI = Uri.parse("content://mms/inbox");
+	    Cursor mInboxCursor = context.getContentResolver().query(MMS_INBOX_URI, null, "read = 0", null, null);
+	    unreadMessagesCount += mInboxCursor.getCount();
+	    mInboxCursor.close();
 	    return unreadMessagesCount;
 	}
 	
