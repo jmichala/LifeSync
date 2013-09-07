@@ -40,7 +40,7 @@ public class Weather {
 			HttpHost target = new HttpHost("weather.yahooapis.com", 80, "http");
 
 			// specify the get request 
-			HttpGet getRequest = new HttpGet("/forecastrss?p=80020&u=f");
+			HttpGet getRequest = new HttpGet("/forecastrss?p=19104");
 
 			Log.i("info","executing request to " + target);
 
@@ -56,11 +56,12 @@ public class Weather {
 			Document doc = db.parse(inStream);
 			NodeList nodes = doc.getElementsByTagName("yweather:condition");
 			NodeList nodes2= doc.getElementsByTagName("yweather:forecast");
-			if(nodes.getLength()>0)  s+="Current temperature: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("temp")+" ";
-			if(nodes2.getLength()>0){ 
-				s+="Today's low: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("low")+" ";
-				s+="Today's high: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("high")+" ";
-				s+="Today will be "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("text");
+			if(nodes.getLength()>0)  
+				s+="Current temperature: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("temp")+". ";
+			if(nodes2.getLength()>0){
+				s+="Today will be "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("text")+". ";
+				s+="Today's low is "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("low")+" and ";
+				s+="Today's high is "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("high")+".";
 			}
 			Log.i("weather",s);
 			/*
