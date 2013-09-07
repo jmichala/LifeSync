@@ -2,6 +2,7 @@ package com.pennapps.morningorganizer;
 
 import android.content.Context;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.nuance.nmdp.speechkit.SpeechError;
 import com.nuance.nmdp.speechkit.SpeechKit;
@@ -57,13 +58,18 @@ public class Nuance implements Vocalizer.Listener {
 	@Override
 	public void onSpeakingBegin(Vocalizer arg0, String arg1, Object arg2) {
 		// TODO Auto-generated method stub
+
+		Toast.makeText((Context) arg2, "The speech worked!", Toast.LENGTH_LONG).show();
 		
 	}
 
 	@Override
 	public void onSpeakingDone(Vocalizer arg0, String arg1, SpeechError arg2,
 			Object arg3) {
-		// TODO Auto-generated method stub
+		if (arg2 != null)
+		{
+			System.out.printf(arg2.getErrorDetail());
+		}
 		
 	}
 	
