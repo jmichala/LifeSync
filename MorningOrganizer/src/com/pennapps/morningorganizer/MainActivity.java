@@ -48,11 +48,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			public void onReceive(Context c, Intent i)
 			{
 				//1. Run weather, mail, etc. functions and get input
+				Weather handleWeather = new Weather();
+				String[] weatherData = handleWeather.weather();
+				
 				
 				//2. Turn values into strings, put info into 
 				//   informationString
-				
-				//3. Hemanth put your shit here
+			/*	informationString = "High: " + weatherData[0].toString() 
+							+ "Low: " + weatherData[1].toString() + " " + weatherData[2];
+		*/		//3. Hemanth put your shit here
 				String debugString = "hi world how are you today?";
 				
 				nuanceObject.initializeSpeechKit(c, errorHandler);
