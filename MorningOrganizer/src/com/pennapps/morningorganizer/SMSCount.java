@@ -21,7 +21,7 @@ public class SMSCount {
 	
 	public String getSMSstring (Context context) {
 		int numOfEmails = getSMSCount(context);
-		String returnString = String.format("Number of unread texts: %d", numOfEmails);
+		String returnString = String.format("You have %d unread texts.", numOfEmails);
 		return returnString;
 		
 	}

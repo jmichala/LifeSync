@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.text.format.Time;
-import android.util.Log;
 
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	String informationString;
