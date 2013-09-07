@@ -43,6 +43,7 @@ public class Weather {
 	      if (entity != null) {
 	        Log.i("info",EntityUtils.toString(entity));
 	      }
+	      
 	
 	    } catch (Exception e) {
 	    	Log.i("info","---ERROR---");
