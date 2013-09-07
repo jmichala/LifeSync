@@ -9,19 +9,24 @@
     android:background="#3F4954"
     tools:context=".MainActivity" >
 
-    <TimePicker
-        android:id="@+id/timePicker"
+    <Button
+        android:id="@+id/fragButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClickTwo"
+        android:text="Schedule for Later" />
 
     <ImageButton
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/fragButton"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="42dp"
+        android:background="@null"
         android:src="@drawable/gobutton" />
 
 </RelativeLayout>
