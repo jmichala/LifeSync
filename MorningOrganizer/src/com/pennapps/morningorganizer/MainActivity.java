@@ -91,7 +91,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	public void onUserSelectValue(int[] returnVal)
 	{
 		Context c = getApplicationContext();
-		Toast.makeText(c, "Scheduled Alarm2!", Toast.LENGTH_LONG).show();
+		Toast.makeText(c, "Scheduled Alarm for " + Integer.toString(returnVal[0]) + ":" + Integer.toString(returnVal[1]), Toast.LENGTH_LONG).show();
 		alarmTimeCal.set(Calendar.HOUR_OF_DAY, returnVal[0]);
 		alarmTimeCal.set(Calendar.MINUTE, returnVal[1]);
 		alarmTimeCal.set(Calendar.SECOND, 0);

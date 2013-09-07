@@ -1,16 +1,18 @@
 package com.pennapps.morningorganizer;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
 
-public class ScheduleDialog extends DialogFragment implements View.OnClickListener {
+public class ScheduleDialog extends DialogFragment {
 	private TimePicker timePicker;
 	int[] returnInt;
 	
@@ -41,10 +43,28 @@ public class ScheduleDialog extends DialogFragment implements View.OnClickListen
 		//mScheduleButton = (Button)view.findViewById(R.id.scheduleButton);
 		timePicker = (TimePicker)view.findViewById(R.id.timePicker1);
 		getDialog().setTitle("Scheduler");
+		
+		Button mButton = (Button)view.findViewById(R.id.scheduleButton);
+		mButton.setOnClickListener(new OnClickListener() {
+			public void onClick(View view) {
+				returnInt = new int[2];
+				returnInt[0] = timePicker.getCurrentHour();
+				returnInt[1] = timePicker.getCurrentMinute();
+				MainActivity callingActivity = (MainActivity) getActivity();
+				callingActivity.onUserSelectValue(returnInt);
+				//onDialogResultListener.onReturn(returnInt);
+				endThis();
+			}
+		});
+		
 		return view;
 	}
 
-	
+	public void endThis()
+	{
+		this.dismiss();
+	}
+	/*
 	@Override
 	public void onClick(View view) {
 		Context c = view.getContext();
@@ -60,7 +80,7 @@ public class ScheduleDialog extends DialogFragment implements View.OnClickListen
 			//onDialogResultListener.onReturn(returnInt);
 			this.dismiss();
 		}
-	}
+	}*/
 	
 	public void onClickButton(View view) {
 		returnInt = new int[2];
