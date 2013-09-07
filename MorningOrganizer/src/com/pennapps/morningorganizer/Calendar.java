@@ -95,6 +95,7 @@ public class Calendar {
 				d = new Date(Long.decode(cursor.getString(cursor.getColumnIndex("dtstart"))));
 				hours = d.getHours();
 				minutes = d.getMinutes();
+				nameEvent = cursor.getString(cursor.getColumnIndex("title"));
 				//Log.i("cursorData", Integer.toString(hours) + ":" + Integer.toString(minutes));
 				if (hours >= 12)
 				{				
