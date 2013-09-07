@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.text.format.Time;
+import android.util.Log;
 
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	String informationString;
@@ -30,11 +31,14 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		Weather handleWeather = new Weather(thisContext);
 		String weatherData = handleWeather.weather();
 		
+		JavaMail jm = new JavaMail();
+		String emailData = jm.jm2();
+		
 		SMSCount smsData = new SMSCount();
 		String smsDataString = smsData.getSMSstring(thisContext);
 		//2. Turn values into strings, put info into 
 		//   informationString
-		informationString = weatherData + " " + smsDataString;
+		informationString = weatherData + " " + smsDataString + " " + emailData;
 			//3. Hemanth put your shit here
 		//String debugString = "hi world how are you today?";
 		
