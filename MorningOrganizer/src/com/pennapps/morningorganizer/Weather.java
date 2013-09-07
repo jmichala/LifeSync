@@ -47,10 +47,20 @@ public class Weather {
 			// <yweather:forecast day="Fri" date="6 Sep 2013" low="65" high="94" text="Clear" code="31"/>
 			//scan.findInLine("low=\"(\\d+)\" high=\"(\\d+)\" text=\"(\\w+)\" code=\"(\\d+)\"");
 			//scan.findInLine("<yweather:forecast day=\"Sat\" date=\"7 Sep 2013\" low=\"(\\d+)\" high=\"(\\d+)\" text=\"(\\w+)\" code=\"(\\d+)\" />");
-			scan.findInLine("low=\"(\\d+)\""); //Doesn't work either, wtf
-			MatchResult match = scan.match();
-			for(int i=0;i<match.groupCount();i++)
-				l.add(match.group(i).toString());
+
+			
+			// **** TODO: try this? ****
+			
+			while(scan.hasNextLine()){
+				if (scan.hasNext("yweather")){ 
+					scan.findInLine("low=\"(\\d+)\""); //Doesn't work either, wtf
+					MatchResult match = scan.match();
+					for(int i=0;i<match.groupCount();i++)
+						l.add(match.group(i).toString());
+					break;
+				}
+			}
+			
 			/*
 			Log.i("info","----------------------------------------");
 			Log.i("info",httpResponse.getStatusLine().toString());
