@@ -17,12 +17,13 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		//1. Run weather, mail, etc. functions and get input
 		Weather handleWeather = new Weather();
 		String weatherData = handleWeather.weather();
-		
+		Calendar calendar = new Calendar();
+		String calendarData = calendar.getCalendarStuff(thisContext);
 		SMSCount smsData = new SMSCount();
 		String smsDataString = smsData.getSMSstring(thisContext);
 		//2. Turn values into strings, put info into 
 		//   informationString
-		informationString = weatherData + " " + smsDataString;
+		informationString = weatherData + " " + smsDataString + ". " + calendarData;
 			//3. Hemanth put your shit here
 		//String debugString = "hi world how are you today?";
 		
