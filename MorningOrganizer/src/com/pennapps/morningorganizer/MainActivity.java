@@ -23,7 +23,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	final static private long SECOND = 1000;
 	
 	Calendar alarmTimeCal = Calendar.getInstance();
-	
 	PendingIntent pendingIntent;
 	BroadcastReceiver broadcastReceiver;
 	AlarmManager alarmManager;
@@ -44,6 +43,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		setup();
 	}
 	
+	//Do all internet-related stuff
+	private void doStuff(Context c)
+	{
+		new GetInfoTask().execute(c);
+		
+		//Debug message to make sure alarm shit is working
+		Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
+	}
+	
 	//Sets up the Alarm Manager
 	private void setup() {
 		
@@ -51,14 +59,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			@Override
 			public void onReceive(Context c, Intent i)
 			{
-				
-				new GetInfoTask().execute(c);
-				Toast.makeText(c, "initialized", Toast.LENGTH_LONG).show();
-
-
-				
-				//Debug message to make sure alarm shit is working
-				Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
+				doStuff(c);
 			}
 		};
 		registerReceiver(broadcastReceiver, new IntentFilter("com.pennapps.morningorganizer"));
@@ -70,14 +71,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		//Do stuff right now
 		//Set up time for alarm
+
+		Context c = v.getContext().getApplicationContext();
+		
+		/*
 		TimePicker timePicker = (TimePicker)(findViewById(R.id.timePicker));
 		alarmTimeCal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
 		alarmTimeCal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
 		alarmTimeCal.set(Calendar.SECOND, 0);
-		
+		*/
+
+		Toast.makeText(c, "Announcing...", Toast.LENGTH_LONG).show();
+		doStuff(c);
 		//Start the alarm manager to wake up the app
-		alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
+		//alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
 	}
 	
 	@Override
