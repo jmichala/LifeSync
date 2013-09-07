@@ -7,6 +7,7 @@ import com.nuance.nmdp.speechkit.SpeechError;
 import com.nuance.nmdp.speechkit.SpeechKit;
 import com.nuance.nmdp.speechkit.Vocalizer;
 
+
 public class Nuance implements Vocalizer.Listener {
 
 	public static final String TTS_KEY = "com.nuance.nmdp.sample.tts";	 //to change later?
@@ -52,7 +53,6 @@ public class Nuance implements Vocalizer.Listener {
     		_speechKit.release();
     	}
     }
-    
 
 	@Override
 	public void onSpeakingBegin(Vocalizer arg0, String arg1, Object arg2) {
