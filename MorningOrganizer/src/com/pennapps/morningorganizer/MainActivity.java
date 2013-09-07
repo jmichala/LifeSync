@@ -1,70 +1,102 @@
 package com.pennapps.morningorganizer;
 
+import java.util.Calendar;
+
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.View;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
-import com.nuance.nmdp.speechkit.SpeechError;
-import com.nuance.nmdp.speechkit.SpeechKit;
-import com.nuance.nmdp.speechkit.Vocalizer;
-
-public class Nuance implements Vocalizer.Listener {
-
-	public static final String TTS_KEY = "com.nuance.nmdp.sample.tts";	 //to change later?
-    
-    private static Vocalizer _vocalizer;
-    private static Object _lastTtsContext = null;
-    
+public class MainActivity extends Activity implements View.OnClickListener {
+	//Time length of one second
+	final static private long SECOND = 1000;
 	
-	private static SpeechKit _speechKit;
-    
-    // Allow other activities to access the SpeechKit instance.
-    SpeechKit getSpeechKit()
-    {
-        return _speechKit;
-    }
-    
-    void initializeSpeechKit(Context appContext, Handler handler)
-    {
-    	if (_speechKit == null)
-    	{
-    		  _speechKit = SpeechKit.initialize(appContext, NuanceAppInfo.SpeechKitAppId, NuanceAppInfo.SpeechKitServer, NuanceAppInfo.SpeechKitPort, NuanceAppInfo.SpeechKitSsl, NuanceAppInfo.SpeechKitApplicationKey);
-               _speechKit.connect();
-               initializeTheVocalizer(appContext, handler);
-    	}
-    	
-    }
-    
-    void initializeTheVocalizer(Context appContext, Handler handler)
-    {
-    	_vocalizer = (Vocalizer) _speechKit.createVocalizerWithLanguage("en_US", this, handler);
-    }
-    
-    void speakTheString(String stringToSay, Context appContext)
-    {
-    	_vocalizer.speakString(stringToSay, appContext);
-    }
-    
-    void closeSpeechKit()
-    {
-    	if (_speechKit != null)
-    	{
-    		_speechKit.cancelCurrent();
-    		_speechKit.release();
-    	}
-    }
-    
-
+	Calendar alarmTimeCal = Calendar.getInstance();
+	
+	PendingIntent pendingIntent;
+	BroadcastReceiver broadcastReceiver;
+	AlarmManager alarmManager;
+	String informationString = "";
+	Handler errorHandler;
+	Nuance nuanceObject;
+	
 	@Override
-	public void onSpeakingBegin(Vocalizer arg0, String arg1, Object arg2) {
-		// TODO Auto-generated method stub
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		nuanceObject = new Nuance();
+		//Assign listener to the button
+		findViewById(R.id.startButton).setOnClickListener(this);
 		
+		setup();
+	}
+	
+	//Sets up the Alarm Manager
+	private void setup() {
+		
+		broadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context c, Intent i)
+			{
+				//1. Run weather, mail, etc. functions and get input
+				
+				//2. Turn values into strings, put info into 
+				//   informationString
+				
+				//3. Hemanth put your shit here
+				String debugString = "hi world";
+				
+				nuanceObject.initializeSpeechKit(c, errorHandler);
+				
+				nuanceObject.speakTheString(debugString, c);
+				
+				
+				//Debug message to make sure alarm shit is working
+				Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
+			}
+		};
+		registerReceiver(broadcastReceiver, new IntentFilter("com.pennapps.morningorganizer"));
+		
+		pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com.pennapps.morningorganizer"), 0);
+		
+		alarmManager = (AlarmManager)(this.getSystemService(Context.ALARM_SERVICE));
 	}
 
 	@Override
-	public void onSpeakingDone(Vocalizer arg0, String arg1, SpeechError arg2,
-			Object arg3) {
-		// TODO Auto-generated method stub
+	public void onClick(View v) {
+		//Set up time for alarm
+		TimePicker timePicker = (TimePicker)(findViewById(R.id.timePicker));
+		alarmTimeCal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+		alarmTimeCal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+		alarmTimeCal.set(Calendar.SECOND, 0);
 		
+		//Start the alarm manager to wake up the app
+		alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
 	}
 	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	@Override
+	protected void onDestroy()
+	{
+		alarmManager.cancel(pendingIntent);
+		unregisterReceiver(broadcastReceiver);
+		nuanceObject.closeSpeechKit();
+		super.onDestroy();
+	}
+
 }
