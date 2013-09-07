@@ -3,6 +3,7 @@ package com.pennapps.morningorganizer;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.text.format.Time;
 
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
@@ -15,6 +16,9 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	protected String doInBackground(Context... c)
 	{
 		thisContext = c[0];
+		Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
+		// Vibrate for 1 second
+		v.vibrate(1000);
 		nuanceObject.initializeSpeechKit(thisContext, errorHandler);
 		//1. Run weather, mail, etc. functions and get input
 		
@@ -25,7 +29,22 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		String meridien = now.format("%p");
 		int minute = Integer.parseInt(now.format("%M"));
 		String time = ""+hour+", "+(minute<10 ? "oh "+(minute==0? "clock":minute) : minute)+meridien;
-		nuanceObject.speakTheString(time+" "+day, thisContext);
+		String greeting="";
+		if(meridien.equals("am")){
+			if(hour<6)
+				greeting="Why are you up? Go to sleep. It's ";
+			else if(hour<10)
+				greeting="Good morning. It's ";
+			else
+				greeting="Good morning, lazy. It's ";
+		}
+		else{
+			if (hour<5)
+				greeting="Good afternoon, it's ";
+			else
+				greeting="Good evening, it is ";
+		}
+		nuanceObject.speakTheString(greeting+time+" "+day, thisContext);
 		
 		Weather handleWeather = new Weather(thisContext);
 		String weatherData = handleWeather.weather();
