@@ -1,22 +1,69 @@
 package com.pennapps.morningorganizer;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.content.Context;
+import android.os.Handler;
 
-public class MainActivity extends Activity {
+import com.nuance.nmdp.speechkit.SpeechError;
+import com.nuance.nmdp.speechkit.SpeechKit;
+import com.nuance.nmdp.speechkit.Vocalizer;
+
+public class Nuance implements Vocalizer.Listener {
+
+	public static final String TTS_KEY = "com.nuance.nmdp.sample.tts";	 //to change later?
+    
+    private static Vocalizer _vocalizer;
+    private static Object _lastTtsContext = null;
+    
+	
+	private static SpeechKit _speechKit;
+    
+    // Allow other activities to access the SpeechKit instance.
+    SpeechKit getSpeechKit()
+    {
+        return _speechKit;
+    }
+    
+    void initializeSpeechKit(Context appContext, Handler handler)
+    {
+    	if (_speechKit == null)
+    	{
+    		  _speechKit = SpeechKit.initialize(appContext, NuanceAppInfo.SpeechKitAppId, NuanceAppInfo.SpeechKitServer, NuanceAppInfo.SpeechKitPort, NuanceAppInfo.SpeechKitSsl, NuanceAppInfo.SpeechKitApplicationKey);
+               _speechKit.connect();
+               initializeTheVocalizer(appContext, handler);
+    	}
+    	
+    }
+    
+    void initializeTheVocalizer(Context appContext, Handler handler)
+    {
+    	_vocalizer = (Vocalizer) _speechKit.createVocalizerWithLanguage("en_US", this, handler);
+    }
+    
+    void speakTheString(String stringToSay, Context appContext)
+    {
+    	_vocalizer.speakString(stringToSay, appContext);
+    }
+    
+    void closeSpeechKit()
+    {
+    	if (_speechKit != null)
+    	{
+    		_speechKit.cancelCurrent();
+    		_speechKit.release();
+    	}
+    }
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+	public void onSpeakingBegin(Vocalizer arg0, String arg1, Object arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public void onSpeakingDone(Vocalizer arg0, String arg1, SpeechError arg2,
+			Object arg3) {
+		// TODO Auto-generated method stub
+		
 	}
-
+	
 }
