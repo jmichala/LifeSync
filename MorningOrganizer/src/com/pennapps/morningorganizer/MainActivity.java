@@ -52,6 +52,7 @@ public class Nuance implements Vocalizer.Listener {
     		_speechKit.release();
     	}
     }
+    
 
 	@Override
 	public void onSpeakingBegin(Vocalizer arg0, String arg1, Object arg2) {
