@@ -9,12 +9,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 
 public class MainActivity extends Activity implements View.OnClickListener {
 	//Time length of one second
@@ -28,6 +30,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	String informationString = "";
 	Handler errorHandler;
 	Nuance nuanceObject;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +51,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			@Override
 			public void onReceive(Context c, Intent i)
 			{
-				//1. Run weather, mail, etc. functions and get input
-				Weather handleWeather = new Weather();
-				String[] weatherData = handleWeather.weather();
 				
-				
-				//2. Turn values into strings, put info into 
-				//   informationString
-			/*	informationString = "High: " + weatherData[0].toString() 
-							+ "Low: " + weatherData[1].toString() + " " + weatherData[2];
-		*/		//3. Hemanth put your shit here
-				String debugString = "hi world how are you today?";
-				
-				nuanceObject.initializeSpeechKit(c, errorHandler);
-
+				new GetInfoTask().execute(c);
 				Toast.makeText(c, "initialized", Toast.LENGTH_LONG).show();
-				nuanceObject.speakTheString(debugString, c);
+
 
 				
 				//Debug message to make sure alarm shit is working

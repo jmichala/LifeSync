@@ -43,8 +43,11 @@ public class Weather {
 			HttpEntity entity = httpResponse.getEntity();
 			buf = EntityUtils.toString(entity);
 			Scanner scan = new Scanner(buf);
+			Log.i("info", buf);
 			// <yweather:forecast day="Fri" date="6 Sep 2013" low="65" high="94" text="Clear" code="31"/>
-			scan.findInLine("low=\"(\\d+)\" high=\"(\\d+)\" text=\"(\\w+)\" code=\"(\\d+)\"");
+			//scan.findInLine("low=\"(\\d+)\" high=\"(\\d+)\" text=\"(\\w+)\" code=\"(\\d+)\"");
+			//scan.findInLine("<yweather:forecast day=\"Sat\" date=\"7 Sep 2013\" low=\"(\\d+)\" high=\"(\\d+)\" text=\"(\\w+)\" code=\"(\\d+)\" />");
+			scan.findInLine("low=\"(\\d+)\""); //Doesn't work either, wtf
 			MatchResult match = scan.match();
 			for(int i=0;i<match.groupCount();i++)
 				l.add(match.group(i).toString());
