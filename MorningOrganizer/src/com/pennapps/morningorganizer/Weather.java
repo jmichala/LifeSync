@@ -3,6 +3,7 @@ package com.pennapps.morningorganizer;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 
@@ -19,16 +20,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
 
 
 public class Weather {
-	public static void main(String[] args){
-		Log.i("info","yo");
-		//		weather();
+	Context c;
+	public Weather(Context c){
+		this.c=c;
 	}
-	public Weather(){}
 	public String weather(){
 		String buf=new String();
 		String s="";
@@ -39,8 +44,15 @@ public class Weather {
 			// specify the host, protocol, and port
 			HttpHost target = new HttpHost("weather.yahooapis.com", 80, "http");
 
-			// specify the get request 
-			HttpGet getRequest = new HttpGet("/forecastrss?p=19104");
+			// specify the get request
+//			LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+//			Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//			double lng = location.getLongitude();
+//			double lat = location.getLatitude();
+			
+//			Geocoder geocoder = new Geocoder(c, Locale.getDefault());
+//			List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+			HttpGet getRequest = new HttpGet("/forecastrss?p=19104&u=t");
 
 			Log.i("info","executing request to " + target);
 
