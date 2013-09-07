@@ -78,7 +78,7 @@ public class Calendar {
 			else
 			{
 			if (hours == 0) { hours = 12; }
-				if (minutes != 0)
+				 if (minutes != 0)
 				{	
 					toReturn = toReturn + "You have " + nameEvent + " at " + (hours) + ":" + minutes + " AM... ";
 				}
@@ -95,6 +95,7 @@ public class Calendar {
 				d = new Date(Long.decode(cursor.getString(cursor.getColumnIndex("dtstart"))));
 				hours = d.getHours();
 				minutes = d.getMinutes();
+				nameEvent = cursor.getString(cursor.getColumnIndex("title"));
 				//Log.i("cursorData", Integer.toString(hours) + ":" + Integer.toString(minutes));
 				if (hours >= 12)
 				{				

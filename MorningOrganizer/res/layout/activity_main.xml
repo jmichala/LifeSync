@@ -27,6 +27,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="42dp"
         android:background="@null"
-        android:src="@drawable/gobutton" />
+        android:src="@drawable/gobutton"/>
 
 </RelativeLayout>
