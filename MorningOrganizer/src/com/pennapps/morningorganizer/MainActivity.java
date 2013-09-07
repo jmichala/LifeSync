@@ -53,14 +53,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 				//   informationString
 				
 				//3. Hemanth put your shit here
-				String debugString = "hi world";
+				String debugString = "hi world how are you today?";
 				
 				nuanceObject.initializeSpeechKit(c, errorHandler);
 
 				Toast.makeText(c, "initialized", Toast.LENGTH_LONG).show();
 				nuanceObject.speakTheString(debugString, c);
 
-				Toast.makeText(c, "spoke", Toast.LENGTH_LONG).show();
 				
 				//Debug message to make sure alarm shit is working
 				Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
