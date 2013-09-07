@@ -59,6 +59,7 @@ public class Weather {
 						l.add(match.group(i).toString());
 					break;
 				}
+				scan.nextLine();
 			}
 			
 			/*
