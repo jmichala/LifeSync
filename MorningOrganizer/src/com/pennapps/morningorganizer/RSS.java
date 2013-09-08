@@ -67,7 +67,7 @@ public class RSS {
 			inStream.setCharacterStream(new StringReader(buf));
 			Document doc = db.parse(inStream);
 			NodeList nodes = doc.getElementsByTagName("title");
-			for(int i=0;i<nodes.getLength();i++)  
+			for(int i=1;i<nodes.getLength();i++)  
 				s+=nodes.item(i).getTextContent()+" ... ";
 			Log.i("rss",s);
 			/*

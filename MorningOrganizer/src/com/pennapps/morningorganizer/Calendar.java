@@ -89,6 +89,7 @@ public class Calendar {
 			}
 			while (cursor.moveToNext())
 			{
+				len++;
 				//Log.i("cursorData", cursor.getString(cursor.getColumnIndex("title")));
 				//Log.i("cursorData", cursor.getString(cursor.getColumnIndex("dtstart")));
 				d = new Date(Long.decode(cursor.getString(cursor.getColumnIndex("dtstart"))));
@@ -122,7 +123,15 @@ public class Calendar {
 			}
 			Log.i("cursorData", toReturn);
 		}
-		toReturn = "You have " + Integer.toString(len) + " events today. " + toReturn; 
+		if (len == 1)
+		{
+		toReturn = "You have " + Integer.toString(len) + " event today. " + toReturn; 
+		}
+		else
+		{
+			toReturn = "You have " + Integer.toString(len) + " events today. " + toReturn; 
+		}
+		
 		return toReturn;
 	}
 }

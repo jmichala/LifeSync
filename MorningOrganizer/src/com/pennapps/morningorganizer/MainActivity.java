@@ -2,11 +2,6 @@ package com.pennapps.morningorganizer;
 
 import java.util.Calendar;
 
-<<<<<<< HEAD
-import android.R;
-=======
-
->>>>>>> 581d4061b063484fafd31546ad44328eb82df792
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -17,6 +12,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
@@ -25,8 +22,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceManager;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 	//Time length of one second
