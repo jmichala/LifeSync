@@ -10,12 +10,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
-
+import android.os.PowerManager.WakeLock;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 	//Time length of one second
@@ -29,6 +32,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	Handler errorHandler;
 	Nuance nuanceObject;
 	
+	WakeLock alarmLock;
+	
 	//Storage location of local file data
 	public static final String PREFS_NAME = "";
 	
@@ -38,6 +43,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		nuanceObject = new Nuance();
+
 		//Assign listener to the button
 		findViewById(R.id.startButton).setOnClickListener(this);
 		setup();
@@ -46,6 +52,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	//Do all internet-related stuff
 	private void doStuff(Context c)
 	{
+
 		new GetInfoTask().execute(c);
 		
 		//Debug message to make sure alarm shit is working
@@ -89,6 +96,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	public void onUserSelectValue(int[] returnVal)
 	{
 		Context c = getApplicationContext();
+		
+		
+		
 		Toast.makeText(c, "Scheduled Alarm for " + Integer.toString(returnVal[0]) + ":" + Integer.toString(returnVal[1]), Toast.LENGTH_LONG).show();
 		Calendar oldCal = Calendar.getInstance();
 		alarmTimeCal.set(Calendar.HOUR_OF_DAY, returnVal[0]);
