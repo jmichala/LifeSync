@@ -20,7 +20,8 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		thisContext = c[0];
 		Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 1 second
-		if(v.hasVibrator()) v.vibrate(1000);
+		if (android.os.Build.VERSION.SDK_INT >= 11)
+			if(v.hasVibrator()) v.vibrate(1000);
 		nuanceObject.initializeSpeechKit(thisContext, errorHandler);
 		//1. Run weather, mail, etc. functions and get input
 

@@ -52,11 +52,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	//Do all internet-related stuff
 	private void doStuff(Context c)
 	{
-
+		alarmLock.acquire();
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+			    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+			    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON      
+			);
 		new GetInfoTask().execute(c);
 		
 		//Debug message to make sure alarm shit is working
 		Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
+		alarmLock.release();
 	}
 	
 	//Sets up the Alarm Manager
@@ -96,6 +101,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	public void onUserSelectValue(int[] returnVal)
 	{
 		Context c = getApplicationContext();
+		
+		PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+		alarmLock = pm.newWakeLock(pm.FULL_WAKE_LOCK, "Lock");
 		
 		
 		
