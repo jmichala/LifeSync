@@ -31,8 +31,8 @@
         android:key="email_holder">
         <EditTextPreference
     	    android:key="email_value"
-    	    android:title="Your Email"
-    	    android:summary="The email that LifeSync checks"
+    	    android:title="Your Gmail"
+    	    android:summary="The email that LifeSync checks (Gmail only)"
     	    android:defaultValue="pennapps.morningorganizer@gmail.com"/>
            	
         <EditTextPreference

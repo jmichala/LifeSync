@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.pennapps.morningorganizer.SettingsActivity"></activity>
+        <activity android:name="com.pennapps.morningorganizer.AboutActivity"></activity>
         
     </application>
 

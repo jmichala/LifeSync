@@ -174,6 +174,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		switch (item.getOrder()){
 			case 100:
 				startActivity(new Intent(this, SettingsActivity.class));
+			case 200:
+				startActivity(new Intent(this, AboutActivity.class));
 		}
 		return true;
 	}
