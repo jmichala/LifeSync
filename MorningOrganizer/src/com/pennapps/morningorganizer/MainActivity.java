@@ -95,13 +95,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
 	}
 	
+	boolean go = true;
+	
 	@Override
 	public void onClick(View v) {
 		//Do stuff right now
 		//Set up time for alarm
 
+		if (go)
+		{
 		Context c = v.getContext().getApplicationContext();
-		
+		v.setBackgroundResource(R.drawable.stopbutton);
+		go=false;
 		/*
 		TimePicker timePicker = (TimePicker)(findViewById(R.id.timePicker));
 		alarmTimeCal.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
@@ -113,6 +118,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		doStuff(c);
 		//Start the alarm manager to wake up the app
 		//alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
+		}
+		else
+		{
+		//code to stop things
+			go=true;
+			v.setBackgroundResource(R.drawable.gobutton);
+			nuanceObject.closeSpeechKit();
+		}
 	}
 	
 	@Override

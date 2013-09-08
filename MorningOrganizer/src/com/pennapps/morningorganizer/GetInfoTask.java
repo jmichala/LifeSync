@@ -16,9 +16,9 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	protected String doInBackground(Context... c)
 	{
 		thisContext = c[0];
-		Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
+		//Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 1 second
-		v.vibrate(1000);
+		//v.vibrate(1000);
 		nuanceObject.initializeSpeechKit(thisContext, errorHandler);
 		//1. Run weather, mail, etc. functions and get input
 
@@ -68,6 +68,11 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	{
 
 		nuanceObject.speakTheString(result, thisContext);
+	}
+	
+	public void killnuance()
+	{
+		nuanceObject.closeSpeechKit();
 	}
 
 	protected String socialResponses()
