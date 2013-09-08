@@ -108,6 +108,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	{
 
 		nuanceObject.speakTheString(result, thisContext);
+	
 	}
 
 	protected String socialResponses(String username, String password)
