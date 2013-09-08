@@ -2,10 +2,16 @@ package com.pennapps.morningorganizer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.text.format.Time;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 @SuppressLint("NewApi")
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
@@ -14,10 +20,23 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	Context thisContext;
 	Nuance nuanceObject = new Nuance();
 
+
+	
 	//Only give this 1 Context, pleaaase
 	protected String doInBackground(Context... c)
 	{
 		thisContext = c[0];
+		
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(thisContext);
+		
+		boolean[] reportStuff = new boolean[4];
+		reportStuff[0] = sharedPref.getBoolean("news_sync", true);
+		reportStuff[1] = sharedPref.getBoolean("cal_sync", true);
+		reportStuff[2] = sharedPref.getBoolean("weather_sync", true);
+		reportStuff[3] = sharedPref.getBoolean("email_sync", true);
+		String emailUser = sharedPref.getString("email_value", "pennapps.morningorganizer@gmail.com");
+		String emailPword = sharedPref.getString("email_password", "pokemanz$$$808303");
+		
 		Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 1 second
 		if (android.os.Build.VERSION.SDK_INT >= 11)
@@ -48,19 +67,35 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 				greeting="Good evening, it is ";
 		}
 		nuanceObject.speakTheString(greeting+time+" "+day, thisContext);
-
-		Weather handleWeather = new Weather(thisContext);
-		String weatherData = handleWeather.weather();
-
-		RSS reader = new RSS(thisContext);
-		String RSSData = reader.readRSS();
-
-
-		String emailTextData = socialResponses();
+		String weatherData;
+		
+		if (reportStuff[2])
+		{
+			Weather handleWeather = new Weather(thisContext);
+			weatherData = handleWeather.weather();
+		}
+		else
+			weatherData = "";
+		
+		String RSSData;
+		if (reportStuff[0])
+		{
+			RSS reader = new RSS(thisContext);
+			RSSData = reader.readRSS();
+		}
+		else
+			RSSData = "";
+		
+		
+		String emailTextData;
+		if (reportStuff[3]) 
+			emailTextData = socialResponses(emailUser, emailPword );
+		else
+			emailTextData = "";
 		//2. Turn values into strings, put info into 
 		//   informationString
 		
-		if (android.os.Build.VERSION.SDK_INT >= 14)
+		if (android.os.Build.VERSION.SDK_INT >= 14 && reportStuff[1])
 		{
 			Calendar calendar = new Calendar();
 			String calendarData = calendar.getCalendarStuff(thisContext);
@@ -74,17 +109,18 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		return informationString;
 
 	}
-
+	
 	protected void onPostExecute(String result)
 	{
 
 		nuanceObject.speakTheString(result, thisContext);
+	
 	}
 
-	protected String socialResponses()
+	protected String socialResponses(String username, String password)
 	{	
 		JavaMail jm = new JavaMail();
-		int unreadEmails = jm.jm();
+		int unreadEmails = jm.jm(username, password);
 
 		SMSCount smsData = new SMSCount();
 		int unreadTexts = smsData.getSMSCount(thisContext);
@@ -135,5 +171,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 
 
 	}
+	
+
 }
 

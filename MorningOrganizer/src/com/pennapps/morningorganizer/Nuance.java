@@ -2,6 +2,8 @@ package com.pennapps.morningorganizer;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.nuance.nmdp.speechkit.SpeechError;
@@ -15,10 +17,12 @@ public class Nuance implements Vocalizer.Listener {
     
     private static Vocalizer _vocalizer;
     private static Object _lastTtsContext = null;
-    
-	
+
+
 	private static SpeechKit _speechKit;
     
+	
+	
     // Allow other activities to access the SpeechKit instance.
     SpeechKit getSpeechKit()
     {
@@ -75,6 +79,7 @@ public class Nuance implements Vocalizer.Listener {
 		{
 			System.out.printf(arg2.getErrorDetail());
 		}
+		
 		
 	}
 	
