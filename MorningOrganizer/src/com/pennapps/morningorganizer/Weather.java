@@ -105,7 +105,7 @@ public class Weather {
 					case 19:
 					case 20:
 					case 21: s+="You won't be able to see much through your windows today. Like outside, not in your computer. "; break;
-					case 22: s+="It's smokey outside; 4 20 blaze it, faggot. "; break;
+					case 22: s+="It's smokey outside!"; break;
 					case 23:
 					case 24: s+="Air is moving fast outside. Don't get blown away. "; break;
 					case 25: s+="Seriously. It's cold. "; break;
@@ -113,7 +113,7 @@ public class Weather {
 					case 27:
 					case 28:
 					case 29:
-					case 30: s+="It will be cloudy with a chance of butts. "; break;
+					case 30: s+="It will be cloudy with a chance of meatballs. "; break;
 					case 31:
 					case 32:
 					case 33:
@@ -131,7 +131,7 @@ public class Weather {
 					case 45:
 					case 46:
 					case 47: s+="Various forms of water will be coming from the sky. "; break;
-					default: s+="I fucked up the weather. I'm really sorry. "; break;
+					default: s+="I screwed up the weather. I'm really sorry. "; break;
 				}
 				//s+="Today will be "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("code")+". ";
 				s+="...";

@@ -106,9 +106,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		//Do stuff right now
 		//Set up time for alarm
 
+		Context c = v.getContext().getApplicationContext();
 		if (go)
 		{
-		Context c = v.getContext().getApplicationContext();
 		v.setBackgroundResource(R.drawable.stopbutton);
 		go=false;
 		/*
@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		//code to stop things
 			go=true;
 			v.setBackgroundResource(R.drawable.gobutton);
-			nuanceObject.closeSpeechKit();
+			nuanceObject.endSpeech();
 		}
 	}
 	

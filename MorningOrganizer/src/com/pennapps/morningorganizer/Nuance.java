@@ -46,6 +46,11 @@ public class Nuance implements Vocalizer.Listener {
     	_vocalizer.speakString(stringToSay, appContext);
     }
     
+    void endSpeech()
+    {
+    	_speechKit.cancelCurrent();
+    }
+    
     void closeSpeechKit()
     {
     	if (_speechKit != null)
