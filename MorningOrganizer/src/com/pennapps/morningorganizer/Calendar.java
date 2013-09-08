@@ -47,16 +47,16 @@ public class Calendar {
 		cursor = context.getContentResolver().query(eventsUri, null, null, null, CalendarContract.Instances.DTSTART + " ASC");
 		Log.i("cursorColumnIndices", "initialized");
 		String toReturn = new String();
-		int i = 0;
+		int len = 0;
 		if (cursor.moveToFirst())
 		{
 			String arrayOfNames[] = cursor.getColumnNames(); 
 			
-			for (i = 0; i < arrayOfNames.length; i++)
+			for (int i = 0; i < arrayOfNames.length; i++)
 			{
 				//Log.i("cursorColumnTitles", arrayOfNames[i]);
 			}
-			i = 1;
+			len = 1;
 			String nameEvent = cursor.getString(cursor.getColumnIndex("title"));
 			//Log.i("cursorData", nameEvent);
 			//Log.i("cursorData", cursor.getString(cursor.getColumnIndex("dtstart")));	
@@ -89,7 +89,6 @@ public class Calendar {
 			}
 			while (cursor.moveToNext())
 			{
-				i++;
 				//Log.i("cursorData", cursor.getString(cursor.getColumnIndex("title")));
 				//Log.i("cursorData", cursor.getString(cursor.getColumnIndex("dtstart")));
 				d = new Date(Long.decode(cursor.getString(cursor.getColumnIndex("dtstart"))));
@@ -123,7 +122,7 @@ public class Calendar {
 			}
 			Log.i("cursorData", toReturn);
 		}
-		toReturn = "You have " + i + " events today. " + toReturn; 
+		toReturn = "You have " + Integer.toString(len) + " events today. " + toReturn; 
 		return toReturn;
 	}
 }
