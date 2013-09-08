@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" >
+
+    <PreferenceCategory
+        android:title="Speech Categories"
+        android:key="cat_holder">
+    	<CheckBoxPreference
+        	android:key="news_sync"
+        	android:title="News"
+        	android:summary="Talk about the News"
+        	android:defaultValue="true"/>
+    	<CheckBoxPreference
+    	    android:key="cal_sync"
+    	    android:title="Calendar"
+    	    android:summary="Talk about your upcoming events"
+    	    android:defaultValue="true"/>
+    	<CheckBoxPreference
+    	    android:key="weather_sync"
+    	    android:title="Weather"
+    	    android:summary="Talk about the weather"
+    	    android:defaultValue="true"/>
+    	<CheckBoxPreference
+    	    android:key="email_sync"
+    	    android:title="Email/Text"
+    	    android:summary="Talk about unread emails/texts"
+    	    android:defaultValue="true"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Email Info"
+        android:key="email_holder">
+        <EditTextPreference
+    	    android:key="email_value"
+    	    android:title="Your Email"
+    	    android:summary="The email that LifeSync checks"
+    	    android:defaultValue="pennapps.morningorganizer@gmail.com"/>
+           	
+        <EditTextPreference
+           	    android:key="email_password"
+           	    android:title="password"
+           	    android:summary="Your email password"
+           	    android:defaultValue="pokemanz$$$808303"/>
+    </PreferenceCategory>
+    
+</PreferenceScreen>

@@ -8,17 +8,20 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
 	//Time length of one second
@@ -46,13 +49,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 		//Assign listener to the button
 		findViewById(R.id.startButton).setOnClickListener(this);
+		PreferenceManager.setDefaultValues(this, R.layout.preferences, false);
 		setup();
 	}
 	
 	//Do all internet-related stuff
 	private void doStuff(Context c)
 	{
-		alarmLock.acquire();
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
 			    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
 			    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON      
@@ -61,7 +64,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		
 		//Debug message to make sure alarm shit is working
 		Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
-		alarmLock.release();
 	}
 	
 	//Sets up the Alarm Manager
@@ -150,6 +152,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		}
 	}
 	
+	public boolean[] getSharedPrefs()
+	{
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean[] reportStuff = new boolean[3];
+		reportStuff[0] = sharedPref.getBoolean("news_sync", true);
+		reportStuff[1] = sharedPref.getBoolean("cal_sync", true);
+		reportStuff[2] = sharedPref.getBoolean("weather_sync", true);
+		return reportStuff;
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -157,6 +169,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getOrder()){
+			case 100:
+				startActivity(new Intent(this, SettingsActivity.class));
+		}
+		return true;
+	}
 	
 	@Override
 	protected void onDestroy()

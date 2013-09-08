@@ -14,7 +14,7 @@ import android.util.Log;
 @SuppressWarnings("all")
 public class JavaMail {
  public JavaMail(){}
- 
+ /*
  public String jm2(){
 		int ret = jm();
 		Log.i("info", "jm(): successfully returned ret=" + ret);
@@ -22,9 +22,9 @@ public class JavaMail {
 		if (ret>0)
 			output = "You have " + ret + " unread emails.";
 		return output;
- }
+ }*/
  
- public int jm(){
+ public int jm(String username, String password){
 	Log.i("info","jm() started");
 	int ret=0;
 	Properties props = System.getProperties();
@@ -34,7 +34,7 @@ public class JavaMail {
 		Session session = Session.getDefaultInstance(props, null);
 		 session.setDebug(true);
 		 Store store = session.getStore("imaps");
-		 store.connect("imap.gmail.com", "pennapps.morningorganizer@gmail.com", "pokemanz$$$808303");
+		 store.connect("imap.gmail.com", username, password);
 		 Log.i("info","javamail store: " + store);
 		 
 		 Folder inbox = store.getFolder("Inbox");
