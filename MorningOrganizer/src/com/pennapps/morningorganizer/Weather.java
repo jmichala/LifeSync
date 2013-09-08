@@ -113,7 +113,7 @@ public class Weather {
 					case 27:
 					case 28:
 					case 29:
-					case 30: s+="Cloudy with a chance of butts. "; break;
+					case 30: s+="It will be cloudy with a chance of butts. "; break;
 					case 31:
 					case 32:
 					case 33:
@@ -134,7 +134,7 @@ public class Weather {
 					default: s+="I fucked up the weather. I'm really sorry. "; break;
 				}
 				//s+="Today will be "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("code")+". ";
-				
+				s+="...";
 			}
 			Log.i("weather",s);
 			/*
