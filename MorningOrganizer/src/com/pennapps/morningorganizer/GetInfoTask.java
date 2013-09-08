@@ -66,9 +66,6 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		else
 			informationString = weatherData + " " + emailTextData + " " + RSSData + ". ";
 		
-		
-
-		informationString = weatherData + " " + emailTextData + " " +RSSData + ". ";
 
 
 		return informationString;
