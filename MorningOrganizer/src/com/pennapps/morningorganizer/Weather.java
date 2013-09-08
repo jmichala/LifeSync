@@ -68,12 +68,73 @@ public class Weather {
 			Document doc = db.parse(inStream);
 			NodeList nodes = doc.getElementsByTagName("yweather:condition");
 			NodeList nodes2= doc.getElementsByTagName("yweather:forecast");
-			if(nodes.getLength()>0)  
-				s+="Current temperature: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("temp")+". ";
-			if(nodes2.getLength()>0){
-				s+="Today will be "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("text")+". ";
-				s+="Today's low is "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("low")+" and ";
-				s+="Today's high is "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("high")+".";
+			if(nodes.getLength()>0)  {
+				int temp = Integer.parseInt(((org.w3c.dom.Element)nodes.item(0)).getAttribute("temp"));
+				if (temp < 50) s+= temp + " degrees? Let's speed up this Global Warming thing.";
+				else if (temp < 60) s+= "It's " + temp + "degrees. Good God it's cold. Not that you were going to go outside, anyway. ";
+				else if (temp < 70) s+= temp + "degrees outside? That's pretty alright.";
+				else if (temp < 80) s+= "The temperature is " + temp + ". Today could be a good day to start going outside. ";
+				else if (temp < 90) s+= "It's " + temp + " degrees. That's not bad. ";
+				else if (temp < 100) s+= temp + " degrees? That's pretty hot. ";
+				else s+= temp + " degrees? Are you Satan? ";
+				//s+="Current temperature: "+((org.w3c.dom.Element)nodes.item(0)).getAttribute("temp")+". ";
+			}
+			if(nodes2.getLength()>0){ // So then change what these might be...
+				s+="Today the temperature will range from "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("low");
+				s+=" to "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("high")+" degrees. ";
+				switch (Integer.parseInt(((org.w3c.dom.Element)nodes2.item(0)).getAttribute("code"))){
+					case 0: s+="You may have some tornadoes coming your way! "; break;
+					case 1: s+="A tropical storm is going to stop by. Don't forget a towel! "; break;
+					case 2: s+="Hurricanes are scary shit. "; break;
+					case 3:
+					case 4: s+="There will be bright flashes and loud noises outside today. Everything is okay; try to remain calm. "; break;
+					case 5:
+					case 6:
+					case 7:
+					case 8:
+					case 9:
+					case 10: s+="Be on the watch for ice! "; break;
+					case 11:
+					case 12: s+="It's gonna be wet! "; break;
+					case 13:
+					case 14:
+					case 15:
+					case 16: s+="There's snow afoot. Watch out for the Yeti! "; break;
+					case 17:
+					case 18: s+="Hard wet stuff is falling from the sky. "; break;
+					case 19:
+					case 20:
+					case 21: s+="You won't be able to see much through your windows today. Like outside, not in your computer. "; break;
+					case 22: s+="It's smokey outside; 4 20 blaze it, faggot. "; break;
+					case 23:
+					case 24: s+="Air is moving fast outside. Don't get blown away. "; break;
+					case 25: s+="Seriously. It's cold. "; break;
+					case 26:
+					case 27:
+					case 28:
+					case 29:
+					case 30: s+="It will be cloudy with a chance of butts. "; break;
+					case 31:
+					case 32:
+					case 33:
+					case 34: s+="No other reason to complain. "; break;
+					case 35: s+="Today will be tempermental. "; break;
+					case 36: s+="You're gonna be sweating your balls off. "; break;
+					case 37:
+					case 38:
+					case 39: s+="You will occasionally be scared by bright flashes and loud sounds. ";break; 
+					case 40: s+="Kinda wet. Don't forget a towel! "; break;
+					case 41:
+					case 42:
+					case 43: s+="Snow! Snow! Snow! Don't forget a toboggan! "; break;
+					case 44: s+="There will be more white stuff in the sky than usual. "; break;
+					case 45:
+					case 46:
+					case 47: s+="Various forms of water will be coming from the sky. "; break;
+					default: s+="I fucked up the weather. I'm really sorry. "; break;
+				}
+				//s+="Today will be "+((org.w3c.dom.Element)nodes2.item(0)).getAttribute("code")+". ";
+				s+="...";
 			}
 			Log.i("weather",s);
 			/*

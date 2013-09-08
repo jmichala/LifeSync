@@ -11,7 +11,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	Handler errorHandler;
 	Context thisContext;
 	Nuance nuanceObject = new Nuance();
-	
+
 	//Only give this 1 Context, pleaaase
 	protected String doInBackground(Context... c)
 	{
