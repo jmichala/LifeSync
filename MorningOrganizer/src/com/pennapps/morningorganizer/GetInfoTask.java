@@ -1,11 +1,13 @@
 package com.pennapps.morningorganizer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.text.format.Time;
 
+@SuppressLint("NewApi")
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	String informationString;
 	Handler errorHandler;
@@ -18,7 +20,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		thisContext = c[0];
 		Vibrator v = (Vibrator) thisContext.getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 1 second
-		v.vibrate(1000);
+		if(v.hasVibrator()) v.vibrate(1000);
 		nuanceObject.initializeSpeechKit(thisContext, errorHandler);
 		//1. Run weather, mail, etc. functions and get input
 
