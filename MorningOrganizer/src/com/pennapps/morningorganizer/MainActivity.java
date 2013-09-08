@@ -29,7 +29,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	Handler errorHandler;
 	Nuance nuanceObject;
 	
-	
+	//Storage location of local file data
+	public static final String PREFS_NAME = "";
 	
 	
 	@Override
@@ -89,9 +90,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 	{
 		Context c = getApplicationContext();
 		Toast.makeText(c, "Scheduled Alarm for " + Integer.toString(returnVal[0]) + ":" + Integer.toString(returnVal[1]), Toast.LENGTH_LONG).show();
+		Calendar oldCal = Calendar.getInstance();
 		alarmTimeCal.set(Calendar.HOUR_OF_DAY, returnVal[0]);
 		alarmTimeCal.set(Calendar.MINUTE, returnVal[1]);
 		alarmTimeCal.set(Calendar.SECOND, 0);
+		if (alarmTimeCal.compareTo(oldCal) <= 0)
+			alarmTimeCal.add(Calendar.DATE, 1);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTimeCal.getTimeInMillis(), pendingIntent);
 	}
 	
