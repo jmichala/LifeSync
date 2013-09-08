@@ -2,6 +2,7 @@ package com.pennapps.morningorganizer;
 
 import java.util.Calendar;
 
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
@@ -60,7 +62,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 			    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
 			    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON      
 			);
-		new GetInfoTask().execute(c);
+		GetInfoTask myTask = new GetInfoTask();
+		myTask.execute(c);
 		
 		//Debug message to make sure alarm shit is working
 		Toast.makeText(c, "The alarm worked!", Toast.LENGTH_LONG).show();
@@ -127,9 +130,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		//Set up time for alarm
 
 		Context c = v.getContext().getApplicationContext();
+		ImageView test = (ImageView)v;
 		if (go)
 		{
-		v.setBackgroundResource(R.drawable.stopbutton);
+			
+		//test.setImageResource(R.drawable.stopbutton);
 		go=false;
 		/*
 		TimePicker timePicker = (TimePicker)(findViewById(R.id.timePicker));
@@ -147,7 +152,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		{
 		//code to stop things
 			go=true;
-			v.setBackgroundResource(R.drawable.gobutton);
+			//test.setImageResource(R.drawable.gobutton);
 			nuanceObject.endSpeech();
 		}
 	}
@@ -181,6 +186,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 		}
 		return false;
 	}
+	
 	
 	@Override
 	protected void onDestroy()

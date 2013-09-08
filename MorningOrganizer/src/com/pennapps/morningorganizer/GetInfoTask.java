@@ -8,6 +8,10 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 @SuppressLint("NewApi")
 public class GetInfoTask extends AsyncTask<Context, Void, String> {
@@ -16,6 +20,8 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 	Context thisContext;
 	Nuance nuanceObject = new Nuance();
 
+
+	
 	//Only give this 1 Context, pleaaase
 	protected String doInBackground(Context... c)
 	{
@@ -103,7 +109,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		return informationString;
 
 	}
-
+	
 	protected void onPostExecute(String result)
 	{
 
@@ -165,5 +171,7 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 
 
 	}
+	
+
 }
 
