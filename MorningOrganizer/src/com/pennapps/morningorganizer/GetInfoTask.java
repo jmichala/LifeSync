@@ -48,13 +48,20 @@ public class GetInfoTask extends AsyncTask<Context, Void, String> {
 		
 		Weather handleWeather = new Weather(thisContext);
 		String weatherData = handleWeather.weather();
-		Calendar calendar = new Calendar();
-		String calendarData = calendar.getCalendarStuff(thisContext);
+
 		
 		String emailTextData = socialResponses();
 		//2. Turn values into strings, put info into 
 		//   informationString
-		informationString = weatherData + " " + emailTextData + " " + calendarData;
+		
+		if (android.os.Build.VERSION.SDK_INT >= 14)
+		{
+			Calendar calendar = new Calendar();
+			String calendarData = calendar.getCalendarStuff(thisContext);
+			informationString = weatherData + " " + emailTextData + " " + calendarData;
+		}
+		else
+			informationString = weatherData + " " + emailTextData;
 		
 		
 		return informationString;
